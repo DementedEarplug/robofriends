@@ -3,18 +3,27 @@ import "./App.css";
 import "./components/RoboCard";
 import CardList from "./components/CardList";
 import Header from "./components/Header";
-import { robots } from "./data/robots";
+import axios from "axios"
+import "tachyons"
+// import { robots } from "./data/robots";
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      robots: robots,
+      robots: [],
       search: "",
     };
   }
 
-  //Use arrow functions to prevent an error with the this. keyword using
+  // Equivalent to vue's mounted()
+  async componentDidMount() {
+    const fetchedRobots = await axios.get("https://jsonplaceholder.typicode.com/users")
+    console.log(fetchedRobots.data)
+    this.setState({ robots: fetchedRobots.data})
+  }
+
+  // Use arrow functions to prevent an error with the this. keyword using
   // the local prop scope instead of the parent scope.
   onSearchChange = (event) => {
     this.setState({ search: event.target.value });
@@ -28,12 +37,21 @@ class App extends Component {
         .includes(this.state.search.toLocaleLowerCase());
     });
 
-    return (
-      <div className="App">
-        <Header searchChange={this.onSearchChange} />
-        <CardList robots={filteredRobots} />
-      </div>
-    );
+    if(this.state.robots.length!==0){
+      return (
+        <div className="App">
+          <Header searchChange={this.onSearchChange} />
+          <CardList robots={filteredRobots} />
+        </div>
+      );
+    } else {
+      return (
+        <div className="App">
+          <Header searchChange={this.onSearchChange} />
+          <h1 className="pv7">Loading...</h1>
+        </div>
+      );
+    }
   }
 }
 
