@@ -3,8 +3,9 @@ import "./App.css";
 import "./components/RoboCard";
 import CardList from "./components/CardList";
 import Header from "./components/Header";
-import axios from "axios"
-import "tachyons"
+import Scroll from "./components/Scroll";
+import axios from "axios";
+import "tachyons";
 // import { robots } from "./data/robots";
 
 class App extends Component {
@@ -18,9 +19,11 @@ class App extends Component {
 
   // Equivalent to vue's mounted()
   async componentDidMount() {
-    const fetchedRobots = await axios.get("https://jsonplaceholder.typicode.com/users")
-    console.log(fetchedRobots.data)
-    this.setState({ robots: fetchedRobots.data})
+    const fetchedRobots = await axios.get(
+      "https://jsonplaceholder.typicode.com/users"
+    );
+    console.log(fetchedRobots.data);
+    this.setState({ robots: fetchedRobots.data });
   }
 
   // Use arrow functions to prevent an error with the this. keyword using
@@ -37,11 +40,13 @@ class App extends Component {
         .includes(this.state.search.toLocaleLowerCase());
     });
 
-    if(this.state.robots.length!==0){
+    if (this.state.robots.length !== 0) {
       return (
         <div className="App">
           <Header searchChange={this.onSearchChange} />
-          <CardList robots={filteredRobots} />
+          <Scroll>
+            <CardList robots={filteredRobots} />
+          </Scroll>
         </div>
       );
     } else {
