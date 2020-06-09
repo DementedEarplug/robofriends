@@ -5,7 +5,7 @@ export default class CardList extends Component {
   render() {
     return (
       <Fragment>
-        {this.props.robots.map((robot, i) => {
+        {this.props.robots.map((robot) => {
           return (
             <RoboCard
               key={robot.id}
