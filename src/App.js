@@ -6,7 +6,6 @@ import Header from "./components/Header";
 import Scroll from "./components/Scroll";
 import axios from "axios";
 import "tachyons";
-// import { robots } from "./data/robots";
 
 class App extends Component {
   constructor() {
@@ -33,30 +32,27 @@ class App extends Component {
   };
 
   render() {
+    const { robots, search } = this.state;
     // Pass this array ass a prop to see the filtering take place.
-    const filteredRobots = this.state.robots.filter((robots) => {
+    const filteredRobots = robots.filter((robots) => {
       return robots.name
         .toLocaleLowerCase()
-        .includes(this.state.search.toLocaleLowerCase());
+        .includes(search.toLocaleLowerCase());
     });
 
-    if (this.state.robots.length !== 0) {
-      return (
-        <div className="App">
-          <Header searchChange={this.onSearchChange} />
-          <Scroll>
-            <CardList robots={filteredRobots} />
-          </Scroll>
-        </div>
-      );
-    } else {
-      return (
-        <div className="App">
-          <Header searchChange={this.onSearchChange} />
-          <h1 className="pv7">Loading...</h1>
-        </div>
-      );
-    }
+    return robots.length ? (
+      <div className="App">
+        <Header searchChange={this.onSearchChange} />
+        <Scroll>
+          <CardList robots={filteredRobots} />
+        </Scroll>
+      </div>
+    ) : (
+      <div className="App">
+        <Header searchChange={this.onSearchChange} />
+        <h1 className="pv7">Loading...</h1>
+      </div>
+    );
   }
 }
 
