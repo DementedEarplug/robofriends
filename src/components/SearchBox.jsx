@@ -4,7 +4,11 @@ export default class SearchBox extends Component {
     render() {
         return (
             <Fragment>
-                <input onChange={this.props.searchChange} className="br2 bw1" type="search" name="search" placeholder="Search Robo Friends" />
+                <label htmlFor="search">
+                    Search for your Robofriends!
+                    <br/>
+                    <input alt="robofriends searchbox" id="search" onChange={this.props.searchChange} className="br2 bw1" type="search" name="search" placeholder="Search Robo Friends" />
+                </label>
             </Fragment>
         )
     }
