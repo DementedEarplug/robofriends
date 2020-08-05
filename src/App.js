@@ -33,7 +33,7 @@ class App extends Component {
 
   render() {
     const { robots, search } = this.state;
-    // Pass this array ass a prop to see the filtering take place.
+    // Pass this array as a prop to see the filtering take place.
     const filteredRobots = robots.filter((robots) => {
       return robots.name
         .toLocaleLowerCase()
